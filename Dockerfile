@@ -29,7 +29,8 @@ ADD ./srcs/wordpress /etc/nginx/sites-available/wordpress
 ADD ./srcs/wp-config.php ./var/www/html/wordpress/wp-config.php
 
 #installer clés SSL
-
+ADD ./srcs/localhost.cert /etc/ssl/certs/localhost.cert
+ADD ./srcs/localhost.key /etc/ssl/private/localhost.key
 
 #initialiser serveur et creer base de donnees
 ADD ./srcs/create_database create_database
@@ -39,4 +40,5 @@ RUN sh set_data.sh
 
 #garder le serveur ouvert
 ADD ./srcs/run_serv.sh run_serv.sh
-CMD ["bash", "./run_serv.sh"]
+# CMD ["bash", "./run_serv.sh"]
+CMD ["bash"]
