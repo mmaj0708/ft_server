@@ -1,6 +1,8 @@
 FROM debian:buster
 MAINTAINER Melchior MAJ <mmaj@42.student.fr>
 
+# run command : docker build -t servertest . ; docker run -it -p 80:80 -p 443:443 server
+
 #installer php et nginx
 RUN apt-get update && apt-get upgrade && apt-get install -y nginx vim mariadb-server mariadb-client wget
 RUN apt-get install -y php php-fpm php-gd php-mysql php-cli php-curl php-json
@@ -33,12 +35,12 @@ ADD ./srcs/localhost.cert /etc/ssl/certs/localhost.cert
 ADD ./srcs/localhost.key /etc/ssl/private/localhost.key
 
 #initialiser serveur et creer base de donnees
-ADD ./srcs/create_database create_database
+ADD ./srcs/create_database.sql create_database.sql
 ADD ./srcs/set_data.sh set_data.sh
 ADD ./srcs/init_server.sh init_server.sh
 RUN sh set_data.sh
 
 #garder le serveur ouvert
 ADD ./srcs/run_serv.sh run_serv.sh
-# CMD ["bash", "./run_serv.sh"]
-CMD ["bash"]
+CMD ["bash", "./run_serv.sh"]
+# CMD ["bash"]

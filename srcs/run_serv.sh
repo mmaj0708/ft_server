@@ -1,2 +1,4 @@
-sh init_server.sh
+#! /bin/bash
+
+bash init_server.sh
 tail
